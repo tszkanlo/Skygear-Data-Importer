@@ -8,7 +8,7 @@ const parse = require('csv-parse');
 program
 	.arguments('<file>')
 	.option('-e, --endpoint <endpoint>', 'Skygear endpoint')
-	.option('-k, --apikey <apikey>', 'Skygear Master Key')
+	.option('-k, --apikey <apikey>', 'Skygear API Key')
 	.option('-t, --table <table>', 'Desired Table Name to upload')
 	.action(function(file) {
 		skygear.config({
@@ -29,7 +29,7 @@ function handleFile(file) {
 		if (fileExtension === ".json") {
 			uploadJSONFileToSkygear(file);
 		}else if (fileExtension === ".csv") {
-			convertCSVFileToSKYRecord(program.endpoint, program.apikey, program.table, file);
+			convertCSVFileToSKYRecord(file);
 		}else {
 			console.log("Skygear Data Importer only supports JSON or CSV files.")
 		}
@@ -39,9 +39,9 @@ function uploadJSONFileToSkygear(file) {
 	// TODO
 }
 
-function convertCSVFileToSKYRecord(endpoint, apikey, table, file) {
+function convertCSVFileToSKYRecord(file) {
 	console.log("Converting");
-	const NewRecord = skygear.Record.extend(table);
+	const NewRecord = skygear.Record.extend(program.table);
 	fs.readFile(file, (err, fileData) => {
 		parse(fileData, {columns: true, trim: true}, (err, rows) => {
 			var recordToBeUploaded = rows.map((r) => {
