@@ -55,7 +55,7 @@ function convertCSVFileToSKYRecord(file) {
 function uploadRecords(records) {
 	signUpImporterUser().then(() => {
 		skygear.publicDB.save(records, {atomic: true}).then((result) => {
-			console.log(result);
+			console.log(`Record saved. ${result.savedRecords.length} records are saved.`);
 			process.exit(1);
 		}).catch((error) => {
 			console.log(error);
