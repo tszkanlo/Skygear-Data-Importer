@@ -1,13 +1,22 @@
 # Skygear Data Importer
-Support importing CSV or JSON file to Skygear Cloud database
+This importer provides a command line interface for importing CSVs to the [Skygear](https://skygear.io) cloud database.
 
 ## Requirement
-- NodeJS v7 or above
+- [NodeJS v7 or above](https://nodejs.org/en/download/)
 
-## Features
-- [x] Import CSV file
-- [ ] Import JSOn file
-
+## Note
+- Use comma-separated CSV
+- The first row of the CSV will be the column name of table in the database. Example:
+  ```
+  Item,Link,Type
+  Aarhus,http://www.odaa.dk/,International Regional
+  Alabama,http://open.alabama.gov/,US State
+  Alberta,http://data.alberta.ca/,International Regional
+  Albuquerque,http://www.cabq.gov/abq-data/,US City or County
+  ```
+- Before you import the CSV, make sure your Skygear app is 'Running'
+  ![Skygear](https://i.imgur.com/1QshNPR.png)
+  
 ## Usage
 ```bash
 npm install -g
@@ -27,15 +36,4 @@ skygear-data-importer -e 'your-endpoint' -k ' your-apikey' -t 'table-name' 'your
     -h, --help                 output usage information
 ```
 
-## Attention
-- Please make sure your skygear endpoint is at `Running` state
-- CSV File should have the column title as the first row and comma-separated but not tab-separated
-  
-  Example:
-  ```
-  Item,Link,Type
-  Aarhus,http://www.odaa.dk/,International Regional
-  Alabama,http://open.alabama.gov/,US State
-  Alberta,http://data.alberta.ca/,International Regional
-  Albuquerque,http://www.cabq.gov/abq-data/,US City or County
-  ```
+
